@@ -2,6 +2,7 @@
   <main>
     <div class="container">
       <div class="row row-cols-5 p-5">
+        <!-- nome del figlio -->
         <Card 
         v-for="(card, index) in cards" :key="index" :image="card.poster" :name="card.title" :title="card.title" :artist="card.author" :year="card.year"/>
       </div>
@@ -10,11 +11,14 @@
 </template>
 
 <script>
+// import axios
 import axios from 'axios';
+// import child
 import Card from './Card.vue';
 
 export default {
   name: 'Main',
+  // importare child nei componenti
   components: {
     Card,
   },

@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <!-- collegare file esterni -->
     <Header />
     <Main />
     <Footer />
@@ -7,6 +8,7 @@
 </template>
 
 <script>
+// importare i file esterni
 import Header from './components/Header.vue';
 import Main from './components/Main.vue';
 import Footer from './components/Footer.vue';
@@ -26,6 +28,7 @@ export default {
 </script>
 
 <style lang="scss">
+// importare bootstrap
 @import "~bootstrap/scss/bootstrap";
 body  {
   background-color: #1E2D3B;
