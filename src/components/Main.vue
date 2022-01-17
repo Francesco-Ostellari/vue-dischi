@@ -4,7 +4,7 @@
       <div class="row row-cols-5 p-5">
         <!-- nome del figlio -->
         <Card 
-        v-for="(card, index) in cards" :key="index" :image="card.poster" :name="card.title" :title="card.title" :artist="card.author" :year="card.year"/>
+        v-for="(card, index) in cards" :key="index" :image="card.poster" :name="card.title" :title="card.title" :author="card.author" :year="card.year"/>
       </div>
     </div>
   </main>
