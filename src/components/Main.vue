@@ -1,11 +1,14 @@
 <template>
   <main>
     <div class="container">
-      <div class="row row-cols-5 p-5">
+      <div class="row row-cols-5 p-5" v-if="cards">
         <!-- nome del figlio -->
         <Card 
         v-for="(card, index) in cards" :key="index" :image="card.poster" :name="card.title" :title="card.title" :author="card.author" :year="card.year"/>
       </div>
+      <div v-else class="loading">
+				<h1>Loading...</h1>
+			</div>
     </div>
   </main>
 </template>
@@ -28,7 +31,9 @@ export default {
     };
   },
   mounted() {
-    this.getCards();
+  setTimeout(() => {
+			this.getCards()
+		}, 1000);
   },
   methods: {
     getCards() {
@@ -45,5 +50,11 @@ export default {
 </script>
 
 <style lang="scss">
-  
+  .loading {
+    color: white;
+    display: flex;
+    justify-content: center;
+    height: calc(100vh - 70px);
+    align-items: center;
+	}
 </style>
