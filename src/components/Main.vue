@@ -1,10 +1,20 @@
 <template>
   <main>
+    <div class="select">
+      <span class="selezionaGenere">Seleziona il genere:</span>
+      <select v-model="generePredefinito" @change="genreCards" name="genere" id="genere">
+        <option value="all">All</option>
+        <option value="rock">Rock</option>
+        <option value="pop">Pop</option>
+        <option value="jazz">Jazz</option>
+        <option value="metal">Metal</option>
+      </select>
+    </div>
     <div class="container">
-      <div class="row row-cols-5 p-5" v-if="cards">
+      <div class="row row-cols-5 p-5" v-if="arrayGenre">
         <!-- nome del figlio -->
         <Card 
-        v-for="(card, index) in cards" :key="index" :image="card.poster" :name="card.title" :title="card.title" :author="card.author" :year="card.year"/>
+        v-for="(card, index) in arrayGenre" :key="index" :image="card.poster" :name="card.title" :title="card.title" :author="card.author" :year="card.year"/>
       </div>
       <div v-else class="loading">
 				<h1>Loading...</h1>
@@ -27,7 +37,9 @@ export default {
   },
   data() {
     return {
-      cards: null
+      arrayOringinal: null,
+      generePredefinito: "all",
+      arrayGenre: null
     };
   },
   mounted() {
@@ -39,17 +51,37 @@ export default {
     getCards() {
       axios.get('https://flynn.boolean.careers/exercises/api/array/music')
       .then((result) => {
-        this.cards = result.data.response;
+        this.arrayOringinal = result.data.response;
+        this.arrayGenre = result.data.response; 
       })
       .catch((error) => {
         console.log(error);
       });
     },
+    genreCards() {
+      this.arrayGenre = this.arrayOringinal;
+
+        if (this.generePredefinito !=='all') {
+          this.arrayGenre = this.arrayGenre.filter(album => album.genre.toLowerCase() === this.generePredefinito);
+        } else {
+          return this.arrayGenre;
+        }
+        return this.arrayGenre;
+    }
   }
 };
 </script>
 
 <style lang="scss">
+  .select {
+    padding-top: 10px;
+    width: 100%;
+    text-align: center;
+    .selezionaGenere{
+      color: white;
+      margin-right: 10px;
+    }
+  }
   .loading {
     color: white;
     display: flex;
