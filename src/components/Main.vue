@@ -2,13 +2,9 @@
   <main>
     <div class="select">
       <span class="selezionaGenere">Seleziona il genere:</span>
-      <select v-model="generePredefinito" @change="genreCards" name="genere" id="genere">
-        <option value="all">All</option>
-        <option value="rock">Rock</option>
-        <option value="pop">Pop</option>
-        <option value="jazz">Jazz</option>
-        <option value="metal">Metal</option>
-      </select>
+      <Select 
+      @doSearch="genreCards($event)"
+      />
     </div>
     <div class="container">
       <div class="row row-cols-5 p-5" v-if="arrayGenre">
@@ -28,12 +24,14 @@
 import axios from 'axios';
 // import child
 import Card from './Card.vue';
+import Select from './Select.vue';
 
 export default {
   name: 'Main',
   // importare child nei componenti
   components: {
     Card,
+    Select
   },
   data() {
     return {
@@ -58,11 +56,11 @@ export default {
         console.log(error);
       });
     },
-    genreCards() {
+    genreCards(text) {
       this.arrayGenre = this.arrayOringinal;
 
-        if (this.generePredefinito !=='all') {
-          this.arrayGenre = this.arrayGenre.filter(album => album.genre.toLowerCase() === this.generePredefinito);
+        if (text !=='all') {
+          this.arrayGenre = this.arrayGenre.filter(album => album.genre.toLowerCase() === text);
         } else {
           return this.arrayGenre;
         }
